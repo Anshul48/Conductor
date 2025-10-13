@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Conductor - Your Second Brain, Evolved</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #e4e4e7;
+            background: #09090b;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 0;
+            position: relative;
+            background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15), transparent 50%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            color: #a1a1aa;
+            margin-bottom: 24px;
+            max-width: 700px;
+        }
+
+        .hero-highlight {
+            font-size: 1.5rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-top: 40px;
+            padding: 24px;
+            border-left: 4px solid #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-dark {
+            background: #18181b;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: #a1a1aa;
+            margin-bottom: 48px;
+            max-width: 700px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            padding: 32px;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            color: #a1a1aa;
+            line-height: 1.7;
+        }
+
+        /* Image Placeholder */
+        .app-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            border-radius: 16px;
+            margin: 48px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #71717a;
+            font-size: 1.125rem;
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+        }
+
+        /* Survey Section */
+        .survey {
+            background: #18181b;
+            border-radius: 16px;
+            padding: 48px;
+            margin: 60px 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .question {
+            margin-bottom: 48px;
+        }
+
+        .question h3 {
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        .option {
+            display: block;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .option.answered {
+            pointer-events: none;
+        }
+
+        .option-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(139, 92, 246, 0.2);
+            width: 0;
+            transition: width 0.6s ease;
+            z-index: 0;
+        }
+
+        .option-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .percentage {
+            font-weight: 600;
+            color: #8b5cf6;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option.answered .percentage {
+            opacity: 1;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 48px;
+            background: #18181b;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e4e4e7;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #8b5cf6;
+            color: #8b5cf6;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Contact Links */
+        .contact-links {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .contact-link:hover {
+            color: #a78bfa;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            color: #71717a;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .success-message {
+            display: none;
+            padding: 16px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            border-radius: 8px;
+            color: #22c55e;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .survey {
+                padding: 32px 24px;
+            }
+            
+            .contact-form {
+                padding: 32px 24px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Your Second Brain is a Graveyard.</h1>
+            <p class="hero-text">
+                You've built a masterpiece of interconnected notes in Obsidian. A digital garden of profound thoughts and brilliant ideas.
+            </p>
+            <p class="hero-text">
+                So why does it feel like a full-time job to maintain?
+            </p>
+            <p class="hero-text">
+                You spend hours linking, tagging, and refactoring, hoping for emergent clarity. Instead, you get cognitive overhead. Your powerful knowledge base has become a passive library—a beautiful graveyard of good intentions.
+            </p>
+            <div class="hero-highlight">
+                It's time for an upgrade. From a static database to a living cognitive partner.
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section>
+        <div class="container">
+            <h2>Introducing Project Conductor</h2>
+            <p class="subtitle">Orchestrator for your mind.</p>
+            
+            <p class="hero-text">
+                Conductor is not another note-taking app. It's a <strong>local-first, AI-powered intelligence layer</strong> that lives on your machine and works <em>with</em> your existing tools.
+            </p>
+            <p class="hero-text">
+                It reads your notes, understands your goals, and automates the grunt work of thinking, planning, and creating. It transforms your knowledge base from a place you <em>store</em> information into an active co-pilot that helps you <em>use</em> it.
+            </p>
+            <p class="hero-text" style="margin-top: 32px; font-size: 1.5rem; color: #ffffff;">
+                Your role shifts from <strong>manager</strong> to <strong>director</strong>.
+            </p>
+
+            <div class="app-image">
+                [Conductor Interface Screenshot - Workspace View]
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2>Built on Three Core Principles</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🧠 Intelligent by Default</h3>
+                    <p>
+                        <strong>On-Device AI:</strong> The core AI runs entirely on your machine (optimized for 8-16GB VRAM). Your notes, plans, and behavioral patterns are never sent to a server without your explicit command.
+                    </p>
+                    <p style="margin-top: 16px;">
+                        <strong>Transparent Hand-off:</strong> For tasks requiring world-scale knowledge, you can grant one-time permission to query powerful cloud models through privacy-preserving APIs. You are always in control.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔒 Privacy-First, Local-First</h3>
+                    <p>
+                        <strong>Data Minimization:</strong> It's architected to learn from the absolute minimum data required to be useful. It doesn't need to know everything, just enough to help you achieve your goals.
+                    </p>
+                    <p style="margin-top: 16px;">
+                        Your data stays on your machine. Your thoughts remain yours. No cloud dependency, no surveillance capitalism.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>✨ Transforms Clutter into Clarity</h3>
+                    <p>
+                        <strong>One-Click Workspaces:</strong> Capture your entire project context—the right code files, browser tabs, and open notes—with a single click. Restore it instantly and dive straight back into a state of flow.
+                    </p>
+                    <p style="margin-top: 16px;">
+                        <strong>The "Book View":</strong> Turn your scattered collection of notes and insights on a topic into a single, coherent "book." See your knowledge synthesized into a linear, easy-to-read format.
+                    </p>
+                </div>
+            </div>
+
+            <div class="app-image">
+                [Conductor Book View - Knowledge Synthesis]
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section>
+        <div class="container">
+            <h2>We're Building This for a Specific Mind. Is it Yours?</h2>
+            <p class="subtitle">
+                This isn't for everyone. We're looking for the systems thinkers, the researchers, the developers, and the relentless self-optimizers who feel the pain of managing a complex digital life. Your feedback at this stage is critical.
+            </p>
+            <p class="hero-text" style="margin-bottom: 48px;">
+                <strong>Help us validate our core assumptions by answering 5 quick questions.</strong>
+            </p>
+
+            <div class="survey">
+                <form id="surveyForm">
+                    <div class="question">
+                        <h3>1. Which statement best describes your current PKM system?</h3>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q1" value="a"> A highly-structured Obsidian/Logseq vault I live in daily.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q1" value="b"> A functional but sometimes chaotic system in Notion/Tana.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q1" value="c"> A collection of simpler tools (Apple Notes, Todoist, etc.).</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q1" value="d"> I don't really have a formal system.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question">
+                        <h3>2. What is the single greatest point of friction in your current workflow?</h3>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q2" value="a"> The manual effort of planning projects and breaking them into tasks.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q2" value="b"> Context-switching between notes, calendar, and work apps.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q2" value="c"> My notes feel "dead" – I collect more than I use.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q2" value="d"> Maintaining the organizational structure itself is exhausting.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question">
+                        <h3>3. Imagine a 100% private, local AI that could read your notes and automate your project planning. How would that impact your work?</h3>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q3" value="a"> Transformative. It's the missing piece I've been looking for.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q3" value="b"> Highly valuable. It would solve a major bottleneck.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q3" value="c"> Interesting, but I'm not sure I'd use it.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q3" value="d"> I don't see the value.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question">
+                        <h3>4. Which concept excites you the most?</h3>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q4" value="a"> The local-first AI that guarantees privacy.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q4" value="b"> The seamless integration with my existing Obsidian vault.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q4" value="c"> The one-click workspace snapshots to eliminate context-switching.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q4" value="d"> The AI-assisted project scaffolding (from note to plan automatically).</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="question">
+                        <h3>5. Would you be willing to test an early alpha version of this system?</h3>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q5" value="a"> Yes, sign me up for the waitlist.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q5" value="b"> Maybe, I'd like to see a demo first.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                        <label class="option">
+                            <div class="option-bar"></div>
+                            <div class="option-content">
+                                <span><input type="radio" name="q5" value="c"> No, thank you.</span>
+                                <span class="percentage"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn">Submit Survey & Join Waitlist</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2>An Ecosystem, Not Just an App</h2>
+            <p class="subtitle">
+                What we've described is just the core. Conductor is designed as a powerful, lean foundation for an entire ecosystem of intelligence.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>True Modularity</h3>
+                    <p>
+                        Its real power unlocks through modules. Imagine a "Study Tutor" module that analyzes past exam questions, a "PhD Researcher" module that assists with literature reviews, or a "Content Creator" module that helps draft articles from your notes. The platform is built for extension.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Augment, Don't Replace</h3>
+                    <p>
+                        This philosophy extends to your tools. We believe in augmenting the workflows you already love. That's why we're starting with seamless, 100% backwards-compatible integration for Obsidian. You don't migrate to Conductor; you empower your existing vault with Conductor.
+                    </p>
+                </div>
+            </div>
+
+            <div class="app-image">
+                [Conductor Modules - Ecosystem View]
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section>
+        <div class="container">
+            <h2>This is More Than an App—It's an Open Research Project.</h2>
+            <p class="subtitle">
+                The "magic" of Conductor is the result of focused research into the future of human-computer interaction and privacy-preserving AI. <strong>We are building this in the open and invite you to join us.</strong>
+            </p>
+
+            <div class="hero-text" style="margin-bottom: 32px;">
+                <p style="margin-bottom: 16px;">Our core research questions include:</p>
+                <p style="margin-left: 24px; margin-bottom: 12px;"><strong>• Edge AI Efficiency:</strong> How can we get maximum intelligence out of constrained local hardware?</p>
+                <p style="margin-left: 24px; margin-bottom: 12px;"><strong>• Predictive Modeling on "Small Data":</strong> Can we train highly accurate models on minimal, distilled, and anonymized user data, flipping the "big data" paradigm on its head?</p>
+                <p style="margin-left: 24px; margin-bottom: 12px;"><strong>• The UX of Cognitive Collaboration:</strong> What is the optimal interface for a human to direct, correct, and collaborate with their personal AI?</p>
+            </div>
+
+            <p class="hero-text">
+                <strong>Are you a student, researcher, or engineer passionate about these problems?</strong> We plan to open-source the core framework and publish our findings. This is your invitation to help build the future of cognitive tooling.
+            </p>
+
+            <div style="margin-top: 48px;">
+                <a href="#contact" class="btn">Let's Collaborate</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Note -->
+    <section class="section-dark">
+        <div class="container">
+            <h2>Why I'm Building This</h2>
+            <p class="hero-text">
+                I'm building Conductor because I am my own target user. I've spent years architecting a digital life, only to find myself burdened by its complexity. Technology promised to augment our intelligence, but our tools have mostly just augmented our ability to hoard data.
+            </p>
+            <p class="hero-text">
+                This project is my answer. It's a bet that the future lies not in more features, but in more intelligent, automated leverage. I believe a system like this—a true cognitive co-pilot—can provide an asymmetric advantage in our ability to learn, create, and solve complex problems.
+            </p>
+            <p class="hero-text">
+                It's an attempt to finally bridge the gap between data and wisdom. Thank you for being a part of the journey.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-form">
+                <h2 style="text-align: center; margin-bottom: 16px;">Join the Waitlist</h2>
+                <p style="text-align: center; color: #a1a1aa; margin-bottom: 32px;">
+                    Be the first to know when Conductor launches. Fill out the form below to stay updated.
+                </p>
+                
+                <!-- Embedded Google Form -->
+                <div style="width: 100%; max-height: 800px; overflow: auto; border-radius: 8px;">
+                    <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSfF0H-LAA2MNnYmuECLq8aEAp1a3JIXQT0Bl1cRQF-bx3dM_g/viewform?usp=header" 
+                        width="100%" 
+                        height="800" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0"
+                        style="background: white; border-radius: 8px;">
+                        Loading…
+                    </iframe>
+                </div>
+
+                <div class="contact-links" style="justify-content: center; margin-top: 48px;">
+                    <a href="mailto:anshul.raj2024@vitstudent.ac.in" class="contact-link">
+                        📧 Email
+                    </a>
+                    <a href="https://github.com/Anshul48" class="contact-link" target="_blank">
+                        💻 GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/anshul-raj-680624234/" class="contact-link" target="_blank">
+                        🔗 LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Project Conductor. Built with conviction, not venture capital.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Survey data storage and retrieval
+        let surveyData = {
+            q1: { a: 0, b: 0, c: 0, d: 0 },
+            q2: { a: 0, b: 0, c: 0, d: 0 },
+            q3: { a: 0, b: 0, c: 0, d: 0 },
+            q4: { a: 0, b: 0, c: 0, d: 0 },
+            q5: { a: 0, b: 0, c: 0 }
+        };
+
+        // Load survey statistics from localStorage
+        function loadSurveyStats() {
+            const stored = {};
+            for (let i = 1; i <= 5; i++) {
+                const key = `survey_q${i}`;
+                const data = JSON.parse(localStorage.getItem(key) || '{}');
+                stored[`q${i}`] = data;
+            }
+            
+            // Merge with defaults
+            for (let q in surveyData) {
+                if (stored[q]) {
+                    surveyData[q] = stored[q];
+                }
+            }
+        }
+
+        // Calculate percentages from counts
+        function calculatePercentages(counts) {
+            const total = Object.values(counts).reduce((sum, val) => sum + val, 0);
+            if (total === 0) return counts;
+            
+            const percentages = {};
+            for (let key in counts) {
+                percentages[key] = Math.round((counts[key] / total) * 100);
+            }
+            return percentages;
+        }
+
+        // Update survey statistics
+        function updateSurveyStats(questionName, answer) {
+            const key = `survey_${questionName}`;
+            const current = JSON.parse(localStorage.getItem(key) || '{}');
+            
+            // Initialize if needed
+            if (!current[answer]) current[answer] = 0;
+            current[answer]++;
+            
+            localStorage.setItem(key, JSON.stringify(current));
+            surveyData[questionName] = current;
+        }
+
+        // Initialize
+        loadSurveyStats();
+
+        // Handle survey form
+        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Collect survey responses
+            const responses = {};
+            for (let i = 1; i <= 5; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (!selectedOption) {
+                    alert('Please answer all questions before submitting.');
+                    return;
+                }
+                responses[questionName] = selectedOption.value;
+            }
+            
+            // Update local statistics
+            for (let q in responses) {
+                updateSurveyStats(q, responses[q]);
+            }
+            
+            // Show percentages for all questions
+            for (let i = 1; i <= 5; i++) {
+                const questionName = 'q' + i;
+                const questionOptions = document.querySelectorAll(`input[name="${questionName}"]`);
+                const percentages = calculatePercentages(surveyData[questionName]);
+                
+                questionOptions.forEach(option => {
+                    const optionLabel = option.closest('.option');
+                    const bar = optionLabel.querySelector('.option-bar');
+                    const percentage = optionLabel.querySelector('.percentage');
+                    const value = option.value;
+                    const percent = percentages[value] || 0;
+                    
+                    optionLabel.classList.add('answered');
+                    bar.style.width = percent + '%';
+                    percentage.textContent = percent + '%';
+                });
+            }
+            
+            // Scroll to contact form
+            setTimeout(() => {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
