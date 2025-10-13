@@ -14,8 +14,8 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #e4e4e7;
-            background: #09090b;
+            color: #27272a; /* Dark gray for text */
+            background: #ffffff; /* White background */
             overflow-x: hidden;
         }
 
@@ -32,19 +32,7 @@
             flex-direction: column;
             justify-content: center;
             padding: 80px 0;
-            position: relative;
-            background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 400px;
-            background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15), transparent 50%);
-            pointer-events: none;
+            background: #ffffff;
         }
 
         h1 {
@@ -52,27 +40,24 @@
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 32px;
-            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #09090b; /* Solid black for main heading */
         }
 
         .hero-text {
             font-size: 1.25rem;
-            color: #a1a1aa;
+            color: #52525b; /* Medium gray for body text */
             margin-bottom: 24px;
             max-width: 700px;
         }
 
         .hero-highlight {
             font-size: 1.5rem;
-            color: #ffffff;
+            color: #09090b; /* Black text */
             font-weight: 600;
             margin-top: 40px;
             padding: 24px;
-            border-left: 4px solid #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid #18181b; /* Black accent border */
+            background: #f4f4f5; /* Light gray background */
             border-radius: 0 8px 8px 0;
         }
 
@@ -82,20 +67,20 @@
             position: relative;
         }
 
-        .section-dark {
-            background: #18181b;
+        .section-light-gray {
+            background: #f4f4f5; /* Light gray for section backgrounds */
         }
 
         h2 {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 700;
             margin-bottom: 32px;
-            color: #ffffff;
+            color: #18181b; /* Near-black for section titles */
         }
 
         .subtitle {
             font-size: 1.125rem;
-            color: #a1a1aa;
+            color: #71717a; /* Lighter gray for subtitles */
             margin-bottom: 48px;
             max-width: 700px;
         }
@@ -109,166 +94,58 @@
 
         .feature-card {
             padding: 32px;
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.2);
+            background: #ffffff; /* White card background */
+            border: 1px solid #e4e4e7; /* Light gray border */
             border-radius: 12px;
             transition: all 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(139, 92, 246, 0.5);
-            background: rgba(139, 92, 246, 0.1);
+            border-color: #a1a1aa; /* Darker border on hover */
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
         }
 
         .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 16px;
-            color: #ffffff;
+            color: #18181b;
         }
 
         .feature-card p {
-            color: #a1a1aa;
+            color: #52525b;
             line-height: 1.7;
         }
 
         /* Image Placeholder */
         .app-image {
             width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            min-height: 400px;
+            background: #f4f4f5; /* Light gray background */
             border-radius: 16px;
             margin: 48px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #71717a;
+            color: #a1a1aa; /* Lighter text color */
             font-size: 1.125rem;
-            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border: 2px dashed #d4d4d8; /* Dashed border */
+            overflow: hidden; /* Ensures the image fits within the rounded corners */
         }
 
-        /* Survey Section */
-        .survey {
-            background: #18181b;
-            border-radius: 16px;
-            padding: 48px;
-            margin: 60px 0;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .question {
-            margin-bottom: 48px;
-        }
-
-        .question h3 {
-            font-size: 1.25rem;
-            margin-bottom: 24px;
-            color: #ffffff;
-        }
-
-        .option {
-            display: block;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option:hover {
-            border-color: rgba(139, 92, 246, 0.5);
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        .option input[type="radio"] {
-            margin-right: 12px;
-        }
-
-        .option.answered {
-            pointer-events: none;
-        }
-
-        .option-bar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            background: rgba(139, 92, 246, 0.2);
-            width: 0;
-            transition: width 0.6s ease;
-            z-index: 0;
-        }
-
-        .option-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .percentage {
-            font-weight: 600;
-            color: #8b5cf6;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .option.answered .percentage {
-            opacity: 1;
-        }
-
-        /* Contact Form */
-        .contact-form {
-            max-width: 600px;
-            margin: 60px auto;
-            padding: 48px;
-            background: #18181b;
-            border-radius: 16px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #e4e4e7;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
+        .app-image img {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 1rem;
-            transition: all 0.2s ease;
+            height: auto;
+            display: block;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-        }
-
+        
         /* Buttons */
         .btn {
             display: inline-block;
             padding: 16px 32px;
-            background: linear-gradient(135deg, #8b5cf6, #6366f1);
-            color: #ffffff;
-            border: none;
+            background: #18181b; /* Black background */
+            color: #ffffff; /* White text */
+            border: 2px solid #18181b;
             border-radius: 8px;
             font-size: 1.125rem;
             font-weight: 600;
@@ -278,18 +155,9 @@
         }
 
         .btn:hover {
+            background: #27272a; /* Slightly lighter black on hover */
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #8b5cf6;
-            color: #8b5cf6;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(139, 92, 246, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         /* Contact Links */
@@ -304,51 +172,51 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #8b5cf6;
+            color: #18181b; /* Black for links */
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s ease;
         }
 
         .contact-link:hover {
-            color: #a78bfa;
+            color: #52525b; /* Gray on hover */
+        }
+        
+        /* Contact Form Section */
+        .contact-section {
+             background: #f4f4f5;
+             padding: 100px 0;
         }
 
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 48px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e4e4e7;
+        }
+        
         /* Footer */
         footer {
             padding: 60px 0;
             text-align: center;
-            color: #71717a;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .success-message {
-            display: none;
-            padding: 16px;
-            background: rgba(34, 197, 94, 0.1);
-            border: 2px solid rgba(34, 197, 94, 0.5);
-            border-radius: 8px;
-            color: #22c55e;
-            margin-top: 16px;
+            color: #a1a1aa;
+            background: #ffffff;
+            border-top: 1px solid #e4e4e7;
         }
 
         @media (max-width: 768px) {
-            .survey {
+            .contact-box {
                 padding: 32px 24px;
             }
-            
-            .contact-form {
-                padding: 32px 24px;
-            }
-
-            section {
+            section, .contact-section {
                 padding: 60px 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>Your Second Brain is a Graveyard.</h1>
@@ -367,7 +235,6 @@
         </div>
     </section>
 
-    <!-- Vision Section -->
     <section>
         <div class="container">
             <h2>Introducing Project Conductor</h2>
@@ -379,7 +246,7 @@
             <p class="hero-text">
                 It reads your notes, understands your goals, and automates the grunt work of thinking, planning, and creating. It transforms your knowledge base from a place you <em>store</em> information into an active co-pilot that helps you <em>use</em> it.
             </p>
-            <p class="hero-text" style="margin-top: 32px; font-size: 1.5rem; color: #ffffff;">
+            <p class="hero-text" style="margin-top: 32px; font-size: 1.5rem; color: #18181b;">
                 Your role shifts from <strong>manager</strong> to <strong>director</strong>.
             </p>
 
@@ -389,8 +256,7 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="section-dark">
+    <section class="section-light-gray">
         <div class="container">
             <h2>Built on Three Core Principles</h2>
 
@@ -427,185 +293,12 @@
             </div>
 
             <div class="app-image">
-                [Conductor Book View - Knowledge Synthesis]
+                 [Conductor Book View - Knowledge Synthesis]
             </div>
         </div>
     </section>
 
-    <!-- Survey Section -->
     <section>
-        <div class="container">
-            <h2>We're Building This for a Specific Mind. Is it Yours?</h2>
-            <p class="subtitle">
-                This isn't for everyone. We're looking for the systems thinkers, the researchers, the developers, and the relentless self-optimizers who feel the pain of managing a complex digital life. Your feedback at this stage is critical.
-            </p>
-            <p class="hero-text" style="margin-bottom: 48px;">
-                <strong>Help us validate our core assumptions by answering 5 quick questions.</strong>
-            </p>
-
-            <div class="survey">
-                <form id="surveyForm">
-                    <div class="question">
-                        <h3>1. Which statement best describes your current PKM system?</h3>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q1" value="a"> A highly-structured Obsidian/Logseq vault I live in daily.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q1" value="b"> A functional but sometimes chaotic system in Notion/Tana.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q1" value="c"> A collection of simpler tools (Apple Notes, Todoist, etc.).</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q1" value="d"> I don't really have a formal system.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="question">
-                        <h3>2. What is the single greatest point of friction in your current workflow?</h3>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q2" value="a"> The manual effort of planning projects and breaking them into tasks.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q2" value="b"> Context-switching between notes, calendar, and work apps.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q2" value="c"> My notes feel "dead" – I collect more than I use.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q2" value="d"> Maintaining the organizational structure itself is exhausting.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="question">
-                        <h3>3. Imagine a 100% private, local AI that could read your notes and automate your project planning. How would that impact your work?</h3>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q3" value="a"> Transformative. It's the missing piece I've been looking for.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q3" value="b"> Highly valuable. It would solve a major bottleneck.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q3" value="c"> Interesting, but I'm not sure I'd use it.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q3" value="d"> I don't see the value.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="question">
-                        <h3>4. Which concept excites you the most?</h3>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q4" value="a"> The local-first AI that guarantees privacy.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q4" value="b"> The seamless integration with my existing Obsidian vault.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q4" value="c"> The one-click workspace snapshots to eliminate context-switching.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q4" value="d"> The AI-assisted project scaffolding (from note to plan automatically).</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="question">
-                        <h3>5. Would you be willing to test an early alpha version of this system?</h3>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q5" value="a"> Yes, sign me up for the waitlist.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q5" value="b"> Maybe, I'd like to see a demo first.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                        <label class="option">
-                            <div class="option-bar"></div>
-                            <div class="option-content">
-                                <span><input type="radio" name="q5" value="c"> No, thank you.</span>
-                                <span class="percentage"></span>
-                            </div>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn">Submit Survey & Join Waitlist</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ecosystem Section -->
-    <section class="section-dark">
         <div class="container">
             <h2>An Ecosystem, Not Just an App</h2>
             <p class="subtitle">
@@ -634,8 +327,7 @@
         </div>
     </section>
 
-    <!-- Research Section -->
-    <section>
+    <section class="section-light-gray">
         <div class="container">
             <h2>This is More Than an App—It's an Open Research Project.</h2>
             <p class="subtitle">
@@ -659,8 +351,7 @@
         </div>
     </section>
 
-    <!-- Founder's Note -->
-    <section class="section-dark">
+    <section>
         <div class="container">
             <h2>Why I'm Building This</h2>
             <p class="hero-text">
@@ -675,21 +366,19 @@
         </div>
     </section>
 
-    <!-- Contact Form -->
-    <section id="contact">
+    <section id="contact" class="contact-section">
         <div class="container">
-            <div class="contact-form">
+            <div class="contact-box">
                 <h2 style="text-align: center; margin-bottom: 16px;">Join the Waitlist</h2>
-                <p style="text-align: center; color: #a1a1aa; margin-bottom: 32px;">
+                <p style="text-align: center; color: #71717a; margin-bottom: 32px;">
                     Be the first to know when Conductor launches. Fill out the form below to stay updated.
                 </p>
                 
-                <!-- Embedded Google Form -->
-                <div style="width: 100%; max-height: 800px; overflow: auto; border-radius: 8px;">
+                <div style="width: 100%; height: 500px; overflow: auto; border-radius: 8px; border: 1px solid #e4e4e7;">
                     <iframe 
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSfF0H-LAA2MNnYmuECLq8aEAp1a3JIXQT0Bl1cRQF-bx3dM_g/viewform?usp=header" 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSfF0H-LAA2MNnYmuECLq8aEAp1a3JIXQT0Bl1cRQF-bx3dM_g/viewform?embedded=true" 
                         width="100%" 
-                        height="800" 
+                        height="100%" 
                         frameborder="0" 
                         marginheight="0" 
                         marginwidth="0"
@@ -703,10 +392,14 @@
                         📧 Email
                     </a>
                     <a href="https://github.com/Anshul48" class="contact-link" target="_blank">
-                        💻 GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                           <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+                        </svg> GitHub
                     </a>
                     <a href="https://www.linkedin.com/in/anshul-raj-680624234/" class="contact-link" target="_blank">
-                        🔗 LinkedIn
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                           <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.012-.66.587-1.209 1.252-1.209.665 0 1.202.549 1.218 1.209.015.66-.553 1.209-1.218 1.209-.665 0-1.24-.549-1.252-1.209zM12.48 6.169h-2.2V12h2.2zM12.48 6.169h-2.2V12h2.2zm-4.71-1.291c-1.002 0-1.81.808-1.81 1.81v4.359h2.29V9.117c0-.936.196-1.84 1.39-1.84 1.17 0 1.192.99 1.192 1.912v4.51h2.29V8.891c0-2.09-1.12-3.08-2.61-3.08z"/>
+                        </svg> LinkedIn
                     </a>
                 </div>
             </div>
@@ -720,107 +413,6 @@
     </footer>
 
     <script>
-        // Survey data storage and retrieval
-        let surveyData = {
-            q1: { a: 0, b: 0, c: 0, d: 0 },
-            q2: { a: 0, b: 0, c: 0, d: 0 },
-            q3: { a: 0, b: 0, c: 0, d: 0 },
-            q4: { a: 0, b: 0, c: 0, d: 0 },
-            q5: { a: 0, b: 0, c: 0 }
-        };
-
-        // Load survey statistics from localStorage
-        function loadSurveyStats() {
-            const stored = {};
-            for (let i = 1; i <= 5; i++) {
-                const key = `survey_q${i}`;
-                const data = JSON.parse(localStorage.getItem(key) || '{}');
-                stored[`q${i}`] = data;
-            }
-            
-            // Merge with defaults
-            for (let q in surveyData) {
-                if (stored[q]) {
-                    surveyData[q] = stored[q];
-                }
-            }
-        }
-
-        // Calculate percentages from counts
-        function calculatePercentages(counts) {
-            const total = Object.values(counts).reduce((sum, val) => sum + val, 0);
-            if (total === 0) return counts;
-            
-            const percentages = {};
-            for (let key in counts) {
-                percentages[key] = Math.round((counts[key] / total) * 100);
-            }
-            return percentages;
-        }
-
-        // Update survey statistics
-        function updateSurveyStats(questionName, answer) {
-            const key = `survey_${questionName}`;
-            const current = JSON.parse(localStorage.getItem(key) || '{}');
-            
-            // Initialize if needed
-            if (!current[answer]) current[answer] = 0;
-            current[answer]++;
-            
-            localStorage.setItem(key, JSON.stringify(current));
-            surveyData[questionName] = current;
-        }
-
-        // Initialize
-        loadSurveyStats();
-
-        // Handle survey form
-        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Collect survey responses
-            const responses = {};
-            for (let i = 1; i <= 5; i++) {
-                const questionName = 'q' + i;
-                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
-                
-                if (!selectedOption) {
-                    alert('Please answer all questions before submitting.');
-                    return;
-                }
-                responses[questionName] = selectedOption.value;
-            }
-            
-            // Update local statistics
-            for (let q in responses) {
-                updateSurveyStats(q, responses[q]);
-            }
-            
-            // Show percentages for all questions
-            for (let i = 1; i <= 5; i++) {
-                const questionName = 'q' + i;
-                const questionOptions = document.querySelectorAll(`input[name="${questionName}"]`);
-                const percentages = calculatePercentages(surveyData[questionName]);
-                
-                questionOptions.forEach(option => {
-                    const optionLabel = option.closest('.option');
-                    const bar = optionLabel.querySelector('.option-bar');
-                    const percentage = optionLabel.querySelector('.percentage');
-                    const value = option.value;
-                    const percent = percentages[value] || 0;
-                    
-                    optionLabel.classList.add('answered');
-                    bar.style.width = percent + '%';
-                    percentage.textContent = percent + '%';
-                });
-            }
-            
-            // Scroll to contact form
-            setTimeout(() => {
-                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-            }, 1000);
-        });
-
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
